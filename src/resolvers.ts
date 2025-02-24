@@ -4,7 +4,7 @@ import { ColorsData } from "./data.js";
 type Speciality = { specialities: "PSYCHOLOGIST" | "OPHTALMOLOGIST" };
 
 type Numbers = { number1: number; number2: number };
-type Colors = { color: string };
+type Colors = { closestColor: string };
 
 export const resolvers = {
   Query: {
@@ -41,10 +41,10 @@ export const resolvers = {
     },
 
     colors: (parents: unknown, args: Colors) => {
-      const { color } = args;
+      const { closestColor } = args;
 
-      if (color) {
-        return ColorsData.filter((colors) => colors.includes(color));
+      if (closestColor) {
+        return ColorsData.filter((colors) => colors.includes(closestColor));
       }
     },
   },

@@ -17,6 +17,6 @@ export const typeDefs = gql`
     subtract(number1: Int!, number2: Int!): Int
     multiply(number1: Int!, number2: Int!): Int
     divide(number1: Int!, number2: Int): Float
-    colors(color: String): [String]
+    colors(closestColor: String): [String]
   }
 `;
