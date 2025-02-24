@@ -11,11 +11,11 @@ export const resolvers = {
     doctors: (parents: unknown, args: Speciality) => {
       const { specialities } = args;
 
-      if (specialities) {
-        return doctorsData.filter((doctor) =>
-          specialities.includes(doctor.speciality)
-        );
-      }
+      return specialities
+        ? doctorsData.filter((doctor) =>
+            specialities.includes(doctor.speciality)
+          )
+        : doctorsData;
     },
     add: (parents: unknown, args: Numbers) => {
       const { number1, number2 } = args;
@@ -43,9 +43,9 @@ export const resolvers = {
     colors: (parents: unknown, args: Colors) => {
       const { closestColor } = args;
 
-      if (closestColor) {
-        return ColorsData.filter((colors) => colors.includes(closestColor));
-      }
+      return closestColor
+        ? ColorsData.filter((colors) => colors.includes(closestColor))
+        : ColorsData;
     },
   },
 };
