@@ -3,6 +3,7 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers } from "./resolvers.js";
 import { typeDefs } from "./schema.js";
 import { TrackAPI } from "./datasources/TrackApi.js";
+import { GhibliAPI } from "./datasources/GhibliApi.js";
 
 const server = new ApolloServer({
   typeDefs,
@@ -16,6 +17,7 @@ const { url } = await startStandaloneServer(server, {
     return {
       dataSources: {
         trackAPI: new TrackAPI({ cache }),
+        ghibliAPI: new GhibliAPI({ cache }),
       },
     };
   },

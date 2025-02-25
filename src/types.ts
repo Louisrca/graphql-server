@@ -1,6 +1,8 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { TrackModel } from './models/TrackModel';
 import { AuthorModel } from './models/AuthorModel';
+import { FilmsModel } from './models/FilmsModel';
+import { PeopleModel } from './models/PeopleModel';
 import { DataSourceContext } from './context';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -26,9 +28,27 @@ export type Author = {
   photo?: Maybe<Scalars['String']['output']>;
 };
 
+export type Film = {
+  __typename?: 'Film';
+  id: Scalars['ID']['output'];
+  originalTitle: Scalars['String']['output'];
+  people: Array<Maybe<People>>;
+  title: Scalars['String']['output'];
+};
+
+export type People = {
+  __typename?: 'People';
+  eyeColor: Scalars['String']['output'];
+  films: Array<Maybe<Film>>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   getAuthor?: Maybe<Author>;
+  getFilms: Array<Film>;
+  getPeople: Array<People>;
   getTracks: Array<Track>;
 };
 
@@ -118,7 +138,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Author: ResolverTypeWrapper<AuthorModel>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Film: ResolverTypeWrapper<FilmsModel>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  People: ResolverTypeWrapper<PeopleModel>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Track: ResolverTypeWrapper<TrackModel>;
@@ -128,7 +150,9 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Author: AuthorModel;
   Boolean: Scalars['Boolean']['output'];
+  Film: FilmsModel;
   ID: Scalars['ID']['output'];
+  People: PeopleModel;
   Query: {};
   String: Scalars['String']['output'];
   Track: TrackModel;
@@ -141,8 +165,26 @@ export type AuthorResolvers<ContextType = DataSourceContext, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type FilmResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Film'] = ResolversParentTypes['Film']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  originalTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  people?: Resolver<Array<Maybe<ResolversTypes['People']>>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PeopleResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['People'] = ResolversParentTypes['People']> = {
+  eyeColor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  films?: Resolver<Array<Maybe<ResolversTypes['Film']>>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAuthor?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType, RequireFields<QueryGetAuthorArgs, 'authorId'>>;
+  getFilms?: Resolver<Array<ResolversTypes['Film']>, ParentType, ContextType>;
+  getPeople?: Resolver<Array<ResolversTypes['People']>, ParentType, ContextType>;
   getTracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
 };
 
@@ -156,6 +198,8 @@ export type TrackResolvers<ContextType = DataSourceContext, ParentType extends R
 
 export type Resolvers<ContextType = DataSourceContext> = {
   Author?: AuthorResolvers<ContextType>;
+  Film?: FilmResolvers<ContextType>;
+  People?: PeopleResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
 };
