@@ -1,4 +1,5 @@
 import { Resolvers } from "./types";
+import { createUser } from "./mutations/users/createUser.js";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -82,5 +83,6 @@ export const resolvers: Resolvers = {
         };
       }
     },
+    createUser,
   },
 };

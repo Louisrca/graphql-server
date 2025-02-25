@@ -7,6 +7,18 @@ export const typeDefs = gql`
     photo: String
   }
 
+  type CreateUserResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    user: User
+  }
+
+  type User {
+    id: ID!
+    username: String!
+  }
+
   type Track {
     id: ID!
     title: String!
@@ -33,6 +45,11 @@ export const typeDefs = gql`
   type Mutation {
     incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
     incrementTrackLikes(id: ID!): IncrementTrackLikesResponse!
+    createUser(
+      username: String!
+      password: String!
+      email: String!
+    ): CreateUserResponse
   }
 
   type IncrementTrackViewsResponse {
