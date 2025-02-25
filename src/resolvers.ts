@@ -32,4 +32,55 @@ export const resolvers: Resolvers = {
       return dataSources.trackAPI.getAuthorBy(parent.authorId);
     },
   },
+
+  Mutation: {
+    async incrementTrackViews(_, { id }, context, info) {
+      try {
+        const track = await context.dataSources.trackAPI.incrementTrackViews(
+          id
+        );
+        const message = `Successfully incremented number of views for track ${id}`;
+
+        return {
+          code: 200,
+          message,
+          success: Boolean(track),
+          track,
+        };
+      } catch (err) {
+        return {
+          code: 304,
+          message:
+            (err as Error)?.message ??
+            "Resource not modified, an internal error occured",
+          success: false,
+          track: null,
+        };
+      }
+    },
+    async incrementTrackLikes(_, { id }, context, info) {
+      try {
+        const track = await context.dataSources.trackAPI.incrementTrackLikes(
+          id
+        );
+        const message = `Successfully incremented number of views for track ${id}`;
+
+        return {
+          code: 200,
+          message,
+          success: Boolean(track),
+          track,
+        };
+      } catch (err) {
+        return {
+          code: 304,
+          message:
+            (err as Error)?.message ??
+            "Resource not modified, an internal error occured",
+          success: false,
+          track: null,
+        };
+      }
+    },
+  },
 };

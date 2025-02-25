@@ -5,4 +5,6 @@ export type TrackModel = {
   thumbnail: string;
   length: number;
   modulesCount: number;
+  numberOfViews: number;
+  numberOfLikes: number;
 };
