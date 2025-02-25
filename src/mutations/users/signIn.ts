@@ -18,17 +18,7 @@ export const signIn: MutationResolvers["signIn"] = async (
         token: null,
       };
     }
-
-    if (!comparePasswords(password, "password")) {
-      return {
-        code: 401,
-        message: "Invalid password",
-        success: false,
-        token: null,
-      };
-    }
-
-    const user = await dataSources.db.user.findUnique({
+    const user = await dataSources.db.user.findFirstOrThrow({
       where: {
         username,
       },
@@ -38,6 +28,16 @@ export const signIn: MutationResolvers["signIn"] = async (
       return {
         code: 401,
         message: "User not found",
+        success: false,
+        token: null,
+      };
+    }
+    const isValidatePassword = await comparePasswords(password, user.password);
+
+    if (!isValidatePassword) {
+      return {
+        code: 401,
+        message: "Invalid password",
         success: false,
         token: null,
       };
