@@ -9,6 +9,14 @@ export const createUser: MutationResolvers["createUser"] = async (
   __
 ) => {
   try {
+    if (username === "" || password === "" || email === "") {
+      return {
+        code: 400,
+        message: "Username, password or email is empty",
+        success: false,
+        user: null,
+      };
+    }
     const createdUser = await dataSources.db.user.create({
       data: {
         username,
