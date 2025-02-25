@@ -14,6 +14,13 @@ export const typeDefs = gql`
     user: User
   }
 
+  type SignInResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    token: String
+  }
+
   type User {
     id: ID!
     username: String!
@@ -50,6 +57,7 @@ export const typeDefs = gql`
       password: String!
       email: String!
     ): CreateUserResponse
+    signIn(username: String!, password: String!): SignInResponse
   }
 
   type IncrementTrackViewsResponse {
