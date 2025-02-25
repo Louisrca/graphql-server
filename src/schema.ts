@@ -13,10 +13,10 @@ export const typeDefs = gql`
 
   type Query {
     doctors(specialities: [Speciality!]): [Doctor]
-    add(number1: Int!, number2: Int!): Int
-    subtract(number1: Int!, number2: Int!): Int
-    multiply(number1: Int!, number2: Int!): Int
-    divide(number1: Int!, number2: Int): Float
-    colors(closestColor: String): [String]
+    add(number1: Float!, number2: Float!): Float
+    subtract(number1: Float!, number2: Float!): Float
+    multiply(number1: Float!, number2: Float!): Float
+    divide(number1: Float!, number2: Float): Float
+    colors(closestColor: String): String
   }
 `;
